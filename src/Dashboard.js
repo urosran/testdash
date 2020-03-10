@@ -1,6 +1,6 @@
 import React from 'react';
 import clsx from 'clsx';
-import { makeStyles } from '@material-ui/core/styles';
+import {makeStyles} from '@material-ui/core/styles';
 import CssBaseline from '@material-ui/core/CssBaseline';
 import Drawer from '@material-ui/core/Drawer';
 import Box from '@material-ui/core/Box';
@@ -17,15 +17,11 @@ import Paper from '@material-ui/core/Paper';
 import Link from '@material-ui/core/Link';
 import MenuIcon from '@material-ui/icons/Menu';
 import ChevronLeftIcon from '@material-ui/icons/ChevronLeft';
-import NotificationsIcon from '@material-ui/icons/Notifications';
-// import { mainListItems, secondaryListItems } from './listItems';
-// import Chart from './Chart';
-// import Deposits from './Deposits';
-// import Orders from './Orders';
 import Button from "@material-ui/core/Button";
 import {Menu} from '@material-ui/icons';
 import app from "./services/base";
-
+import {mainListItems} from './helperElements/listItems'
+// import Drawer from './Drawer'
 
 function Copyright() {
     return (
@@ -125,10 +121,11 @@ export default function Dashboard() {
     const classes = useStyles();
     const [open, setOpen] = React.useState(false);
     const handleDrawerOpen = () => {
-        setOpen(true);
+        setOpenDrawer(true);
+        console.log(open, "handler")
     };
     const handleDrawerClose = () => {
-        setOpen(false);
+        setOpenDrawer(false);
     };
     const fixedHeightPaper = clsx(classes.paper, classes.fixedHeight);
     const [openDrawer, setOpenDrawer] = React.useState(false);
@@ -139,7 +136,7 @@ export default function Dashboard() {
 
     return (
         <div className={classes.root}>
-            <CssBaseline />
+            <CssBaseline/>
             <AppBar position="absolute" className={clsx(classes.appBar, open && classes.appBarShift)}>
                 <Toolbar className={classes.toolbar}>
                     {/*{screenWidth > 500 &&*/}
@@ -147,7 +144,9 @@ export default function Dashboard() {
                         edge="start"
                         color="inherit"
                         aria-label="open drawer"
-                        onClick={handleDrawerOpen}
+                        onClick={() => {
+                            handleDrawerOpen()
+                        }}
                         className={clsx(classes.menuButton, openDrawer && classes.menuButtonHidden)}
                     >
                         <Menu/>
@@ -158,28 +157,28 @@ export default function Dashboard() {
                     <Button variant="outlined" className={classes.addSruveyBtn} onClick={handleOpen}>
                         Add a survey
                     </Button>
-                    <Button color={'secondary'} onClick={() => app.auth().signOut()}>Sign out</Button>
+                    {/*<Button color={'secondary'} onClick={() => app.auth().signOut()}>Sign out</Button>*/}
                 </Toolbar>
             </AppBar>
             <Drawer
                 variant="temporary"
                 classes={{
-                    paper: clsx(classes.drawerPaper, !open && classes.drawerPaperClose),
+                    paper: clsx(classes.drawerPaper, !openDrawer && classes.drawerPaperClose),
                 }}
-                open={open}
+                open={openDrawer}
             >
                 <div className={classes.toolbarIcon}>
                     <IconButton onClick={handleDrawerClose}>
-                        <ChevronLeftIcon />
+                        <ChevronLeftIcon/>
                     </IconButton>
                 </div>
-                <Divider />
-                {/*<List>{mainListItems}</List>*/}
-                <Divider />
+                <Divider/>
+                <List>{mainListItems}</List>
+                {/*<Divider />*/}
                 {/*<List>{secondaryListItems}</List>*/}
             </Drawer>
             <main className={classes.content}>
-                <div className={classes.appBarSpacer} />
+                <div className={classes.appBarSpacer}/>
                 <Container maxWidth="lg" className={classes.container}>
                     <Grid container spacing={3}>
                         {/* Chart */}
@@ -202,7 +201,7 @@ export default function Dashboard() {
                         </Grid>
                     </Grid>
                     <Box pt={4}>
-                        <Copyright />
+                        <Copyright/>
                     </Box>
                 </Container>
             </main>
