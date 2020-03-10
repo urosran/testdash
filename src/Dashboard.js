@@ -22,6 +22,10 @@ import NotificationsIcon from '@material-ui/icons/Notifications';
 // import Chart from './Chart';
 // import Deposits from './Deposits';
 // import Orders from './Orders';
+import Button from "@material-ui/core/Button";
+import {Menu} from '@material-ui/icons';
+import app from "./services/base";
+
 
 function Copyright() {
     return (
@@ -127,29 +131,34 @@ export default function Dashboard() {
         setOpen(false);
     };
     const fixedHeightPaper = clsx(classes.paper, classes.fixedHeight);
+    const [openDrawer, setOpenDrawer] = React.useState(false);
+    const handleOpen = () => {
+        setOpenModal(true);
+    };
+    const [openModal, setOpenModal] = React.useState(false);
 
     return (
         <div className={classes.root}>
             <CssBaseline />
             <AppBar position="absolute" className={clsx(classes.appBar, open && classes.appBarShift)}>
                 <Toolbar className={classes.toolbar}>
+                    {/*{screenWidth > 500 &&*/}
                     <IconButton
                         edge="start"
                         color="inherit"
                         aria-label="open drawer"
                         onClick={handleDrawerOpen}
-                        className={clsx(classes.menuButton, open && classes.menuButtonHidden)}
+                        className={clsx(classes.menuButton, openDrawer && classes.menuButtonHidden)}
                     >
-                        <MenuIcon />
+                        <Menu/>
                     </IconButton>
                     <Typography component="h1" variant="h6" color="inherit" noWrap className={classes.title}>
-                        Dashboard
+                        EllaQ
                     </Typography>
-                    <IconButton color="inherit">
-                        <Badge badgeContent={4} color="secondary">
-                            <NotificationsIcon />
-                        </Badge>
-                    </IconButton>
+                    <Button variant="outlined" className={classes.addSruveyBtn} onClick={handleOpen}>
+                        Add a survey
+                    </Button>
+                    <Button color={'secondary'} onClick={() => app.auth().signOut()}>Sign out</Button>
                 </Toolbar>
             </AppBar>
             <Drawer
