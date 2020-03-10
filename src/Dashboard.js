@@ -157,7 +157,7 @@ export default function Dashboard() {
                     <Button variant="outlined" className={classes.addSruveyBtn} onClick={handleOpen}>
                         Add a survey
                     </Button>
-                    {/*<Button color={'secondary'} onClick={() => app.auth().signOut()}>Sign out</Button>*/}
+                    <Button color={'secondary'} onClick={() => app.auth().signOut()}>Sign out</Button>
                 </Toolbar>
             </AppBar>
             <Drawer
